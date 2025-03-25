@@ -14,7 +14,7 @@ struct TimerView: View {
         leavingAppCount
     }
 
-    let totalTime = 5 // 25 minutes
+    let totalTime = 3 // 25 minutes
     var breakTime = 5 // 5 minutes
     let maxSessions = 4
 
@@ -37,19 +37,19 @@ struct TimerView: View {
 
             VStack(spacing: 30) {
                 Text("Study Session")
-                    .font(.largeTitle)
+                    .font(.title)
                     .fontWeight(.regular)
                     .foregroundColor(.black)
-                    .padding(.bottom, 50)
+                    .padding(.bottom, 30)
 
                 // Circular Progress Timer
                 ZStack {
                     Circle()
-                        .stroke(Color.redTimer.opacity(0.2), lineWidth: 10)
+                        .stroke(Color.greenButton.opacity(0.2), lineWidth: 10)
                         .frame(width: 275, height: 275)
                     
                     Circle()
-                        .stroke(Color.redTimer, lineWidth: 4)
+                        .stroke(Color.greenButton, lineWidth: 4)
                         .frame(width: 270, height: 270)
 
                     Circle()
@@ -61,24 +61,40 @@ struct TimerView: View {
 
                     Text(timeString())
                         .font(.system(size: 48, weight: .bold, design: .monospaced))
-                        .foregroundColor(.redTimer)
+                        .foregroundColor(.greenButton)
                 }
                 .padding(.top, 20)
 
                 // Session Progress Checkpoints
-                HStack(spacing: 20) {
-                    ForEach(0..<maxSessions, id: \.self) { index in
-                        Circle()
-                            .fill(index < sessionCount ? Color.redTimer : Color.clear)
-                            .frame(width: 12, height: 12)
-                            .overlay(Circle().stroke(Color.redTimer, lineWidth: 2))
+                ZStack{
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 220, height: 120
+                        )
+                    VStack{
+                        Text("Cycle")
+                            .foregroundStyle(Color.greenButton)
+                            .fontWeight(.bold)
+                            .font(.system(size: 20))
+                        HStack(spacing: 20) {
+                        ForEach(0..<maxSessions, id: \.self) { index in
+                            Circle()
+                                .fill(index < sessionCount ? Color.redTimer : Color.clear)
+                                .frame(width: 12, height: 12)
+                                .overlay(Circle().stroke(Color.redTimer, lineWidth: 2))
+                        }
                     }
+                    .padding(.top, 5)
+           
+                    Text("Before your next break")
+                        .foregroundColor(.black)
+                        .font(.system(size: 17))
+                        .font(.subheadline)
+                        .padding(.top, 5)
                 }
-                .padding(.top, 20)
-
-                Text("Before your next break")
-                    .foregroundColor(.black)
-                    .font(.subheadline)
+                
+                    }
+                        
 
                 // Play/Pause Button
                 Button(action: {
@@ -89,7 +105,7 @@ struct TimerView: View {
                 }) {
                     ZStack {
                         Circle()
-                            .fill(Color.redButton)
+                            .fill(Color.greenButton)
                             .frame(width: 60, height: 60)
 
                         Image(systemName: isRunning ? "pause.fill" : "play.fill")
@@ -102,12 +118,12 @@ struct TimerView: View {
                 // Distractions Count
                 VStack(spacing: 8) {
                     Text("Distractions Count :")
-                        .foregroundColor(.redTimer)
+                        .foregroundColor(.black)
                         .font(.subheadline)
                         .fontWeight(.semibold)
 
                     Text("Leaving App \(leavingAppCount)/3")
-                        .foregroundColor(.redTimer)
+                        .foregroundColor(.black)
                         .font(.footnote)
                         .onChange(of: totalDistractions) {
                             if totalDistractions > 3 {
@@ -197,18 +213,18 @@ struct BreakView: View {
 
     var body: some View {
         ZStack {
-            Color.red.edgesIgnoringSafeArea(.all)
+            Color.white.edgesIgnoringSafeArea(.all)
 
             VStack(spacing: 40) {
                 Text("BREAK TIME!")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .multilineTextAlignment(.center)
 
                 ZStack {
                     Circle()
-                        .stroke(Color.white.opacity(0.2), lineWidth: 20)
+                        .stroke(Color.blue.opacity(0.2), lineWidth: 20)
                         .frame(width: 250, height: 250)
 
                     Circle()
@@ -222,7 +238,7 @@ struct BreakView: View {
 
                     Text(timeString())
                         .font(.system(size: 48, weight: .bold, design: .monospaced))
-                        .foregroundColor(.white)
+                        .foregroundColor(.blue)
                 }
 
                 Button(action: {
